@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+  <defs>
+    <linearGradient id="bmwGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a5f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Car Body - SUV Higher Profile -->
+  <path d="M50,160 Q55,90 100,75 L160,68 Q200,55 280,55 L340,65 Q375,75 385,120 L395,150 Q400,165 390,175 L50,175 Z" fill="url(#bmwGrad)"/>
+  
+  <!-- Windows - Larger SUV Windows -->
+  <path d="M165,72 L175,60 Q210,52 280,52 L330,62 Q360,70 375,95 L165,95 Z" fill="#374151" opacity="0.9"/>
+  
+  <!-- B-Pillar -->
+  <rect x="260" y="58" width="6" height="40" fill="#0f172a"/>
+  
+  <!-- Roof Rails -->
+  <rect x="175" y="55" width="160" height="4" rx="2" fill="#6b7280"/>
+  
+  <!-- Wheels - SUV Wheels -->
+  <circle cx="100" cy="175" r="35" fill="#1f2937"/>
+  <circle cx="100" cy="175" r="26" fill="#374151"/>
+  <circle cx="100" cy="175" r="15" fill="#60a5fa"/>
+  <circle cx="100" cy="175" r="6" fill="#1f2937"/>
+  
+  <circle cx="320" cy="175" r="35" fill="#1f2937"/>
+  <circle cx="320" cy="175" r="26" fill="#374151"/>
+  <circle cx="320" cy="175" r="15" fill="#60a5fa"/>
+  <circle cx="320" cy="175" r="6" fill="#1f2937"/>
+  
+  <!-- BMW Kidney Grille -->
+  <rect x="360" y="105" width="12" height="25" rx="4" fill="#1f2937" stroke="#6b7280" stroke-width="1"/>
+  <rect x="375" y="105" width="12" height="25" rx="4" fill="#1f2937" stroke="#6b7280" stroke-width="1"/>
+  
+  <!-- Headlights -->
+  <circle cx="385" cy="95" r="8" fill="#fbbf24"/>
+  <circle cx="370" cy="95" r="8" fill="#fbbf24"/>
+  
+  <!-- Taillights -->
+  <rect x="50" y="110" width="10" height="30" rx="3" fill="#ef4444"/>
+  
+  <!-- Label -->
+  <text x="200" y="225" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#9ca3af">BMW X7 M60i</text>
+</svg>

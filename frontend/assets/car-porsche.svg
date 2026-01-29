@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+  <defs>
+    <linearGradient id="porscheGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#dc2626;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#991b1b;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Car Body - Sports Car Low Profile -->
+  <path d="M60,150 Q70,110 130,100 L200,95 Q260,85 320,95 L360,110 Q385,125 390,145 L395,155 Q395,165 385,170 L60,170 Z" fill="url(#porscheGrad)"/>
+  
+  <!-- Windows - Low Sleek -->
+  <path d="M200,98 L220,90 Q270,85 320,95 L350,108 L200,108 Z" fill="#1f2937" opacity="0.9"/>
+  
+  <!-- Roof Line -->
+  <path d="M200,108 Q260,88 350,108" stroke="#fca5a5" stroke-width="1" fill="none"/>
+  
+  <!-- Wheels - Larger Sport Wheels -->
+  <circle cx="110" cy="170" r="32" fill="#1f2937"/>
+  <circle cx="110" cy="170" r="24" fill="#374151"/>
+  <circle cx="110" cy="170" r="14" fill="#fbbf24"/>
+  <circle cx="110" cy="170" r="6" fill="#1f2937"/>
+  
+  <circle cx="330" cy="170" r="32" fill="#1f2937"/>
+  <circle cx="330" cy="170" r="24" fill="#374151"/>
+  <circle cx="330" cy="170" r="14" fill="#fbbf24"/>
+  <circle cx="330" cy="170" r="6" fill="#1f2937"/>
+  
+  <!-- Headlights - Distinctive Porsche -->
+  <ellipse cx="385" cy="135" rx="6" ry="12" fill="#fbbf24"/>
+  <ellipse cx="385" cy="135" rx="3" ry="8" fill="#fef3c7"/>
+  
+  <!-- Taillights -->
+  <rect x="60" y="130" width="15" height="8" rx="2" fill="#fbbf24"/>
+  
+  <!-- Spoiler -->
+  <rect x="55" y="115" width="25" height="4" rx="2" fill="#991b1b"/>
+  
+  <!-- Side Intake -->
+  <rect x="200" y="140" width="60" height="15" rx="3" fill="#1f2937" opacity="0.5"/>
+  
+  <!-- Label -->
+  <text x="200" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#9ca3af">Porsche 911 Turbo</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+  <defs>
+    <linearGradient id="mercedesGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1f2937;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#111827;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="chromeTrim" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e5e7eb;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#9ca3af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e5e7eb;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Car Body - Luxury Sedan -->
+  <path d="M50,160 Q60,100 120,90 L180,85 Q220,70 280,70 L340,80 Q370,90 380,130 L390,150 Q395,160 390,170 L50,170 Z" fill="url(#mercedesGrad)"/>
+  
+  <!-- Windows -->
+  <path d="M185,88 L195,75 Q230,68 280,68 L330,78 Q350,85 360,100 L185,100 Z" fill="#374151" opacity="0.9"/>
+  
+  <!-- Chrome trim -->
+  <path d="M185,100 L360,100" stroke="url(#chromeTrim)" stroke-width="2"/>
+  
+  <!-- Wheels -->
+  <circle cx="100" cy="170" r="30" fill="#1f2937"/>
+  <circle cx="100" cy="170" r="22" fill="#374151"/>
+  <circle cx="100" cy="170" r="12" fill="#6b7280"/>
+  <circle cx="100" cy="170" r="5" fill="#1f2937"/>
+  
+  <circle cx="320" cy="170" r="30" fill="#1f2937"/>
+  <circle cx="320" cy="170" r="22" fill="#374151"/>
+  <circle cx="320" cy="170" r="12" fill="#6b7280"/>
+  <circle cx="320" cy="170" r="5" fill="#1f2937"/>
+  
+  <!-- Mercedes Star -->
+  <circle cx="210" cy="130" r="8" fill="none" stroke="#9ca3af" stroke-width="1"/>
+  <path d="M210,123 L210,137 M204,127 L216,133 M204,133 L216,127" stroke="#9ca3af" stroke-width="1"/>
+  
+  <!-- Headlights -->
+  <ellipse cx="380" cy="140" rx="8" ry="15" fill="#fbbf24"/>
+  
+  <!-- Taillights -->
+  <rect x="50" y="130" width="12" height="20" rx="3" fill="#ef4444"/>
+  
+  <!-- Label -->
+  <text x="200" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#9ca3af">Mercedes S-Class</text>
+</svg>

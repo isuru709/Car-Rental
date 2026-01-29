@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+  <defs>
+    <linearGradient id="carGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="windowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:0.9" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Car Body -->
+  <path d="M100,280 Q120,200 200,180 L350,170 Q400,140 500,140 L650,150 Q720,160 750,200 L780,240 Q790,260 780,280 L100,280 Z" fill="url(#carGrad)" filter="url(#glow)"/>
+  
+  <!-- Windows -->
+  <path d="M360,175 L380,155 Q420,145 500,145 L600,155 Q640,160 660,175 L360,175 Z" fill="url(#windowGrad)"/>
+  
+  <!-- Roof line -->
+  <path d="M360,175 Q400,150 500,148 Q580,150 660,175" stroke="#60a5fa" stroke-width="2" fill="none"/>
+  
+  <!-- Wheels -->
+  <circle cx="200" cy="280" r="50" fill="#1f2937"/>
+  <circle cx="200" cy="280" r="35" fill="#374151"/>
+  <circle cx="200" cy="280" r="20" fill="#60a5fa"/>
+  <circle cx="200" cy="280" r="8" fill="#1f2937"/>
+  
+  <circle cx="620" cy="280" r="50" fill="#1f2937"/>
+  <circle cx="620" cy="280" r="35" fill="#374151"/>
+  <circle cx="620" cy="280" r="20" fill="#60a5fa"/>
+  <circle cx="620" cy="280" r="8" fill="#1f2937"/>
+  
+  <!-- Headlights -->
+  <ellipse cx="760" cy="230" rx="15" ry="20" fill="#fbbf24"/>
+  <ellipse cx="760" cy="230" rx="8" ry="12" fill="#fef3c7"/>
+  
+  <!-- Taillights -->
+  <rect x="100" y="220" width="20" height="30" rx="5" fill="#ef4444"/>
+  
+  <!-- Details -->
+  <line x1="250" y1="280" x2="570" y2="280" stroke="#1f2937" stroke-width="3"/>
+  <path d="M300,230 L700,220" stroke="#60a5fa" stroke-width="2" opacity="0.5"/>
+  
+  <!-- Speed lines -->
+  <line x1="20" y1="200" x2="80" y2="200" stroke="#60a5fa" stroke-width="3" opacity="0.6"/>
+  <line x1="30" y1="230" x2="70" y2="230" stroke="#60a5fa" stroke-width="2" opacity="0.4"/>
+  <line x1="40" y1="260" x2="80" y2="260" stroke="#60a5fa" stroke-width="2" opacity="0.3"/>
+</svg>

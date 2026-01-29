@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 250" width="400" height="250">
+  <defs>
+    <linearGradient id="teslaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f5f5f5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d1d5db;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="teslaWindow" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1f2937;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#374151;stop-opacity:0.9" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Car Body - Tesla Sleek Design -->
+  <path d="M55,155 Q60,95 120,85 L180,80 Q230,68 290,68 L350,78 Q380,90 390,135 L395,150 Q398,160 390,168 L55,168 Z" fill="url(#teslaGrad)"/>
+  
+  <!-- Glass Roof - Tesla Signature -->
+  <path d="M185,83 L195,72 Q240,65 295,68 L345,80 Q370,88 380,110 L185,110 Z" fill="url(#teslaWindow)"/>
+  
+  <!-- Glass Roof Highlight -->
+  <path d="M195,75 Q250,65 340,80" stroke="#60a5fa" stroke-width="1" fill="none" opacity="0.5"/>
+  
+  <!-- Wheels -->
+  <circle cx="105" cy="168" r="32" fill="#1f2937"/>
+  <circle cx="105" cy="168" r="24" fill="#374151"/>
+  <circle cx="105" cy="168" r="14" fill="#10b981"/>
+  <circle cx="105" cy="168" r="6" fill="#1f2937"/>
+  
+  <circle cx="325" cy="168" r="32" fill="#1f2937"/>
+  <circle cx="325" cy="168" r="24" fill="#374151"/>
+  <circle cx="325" cy="168" r="14" fill="#10b981"/>
+  <circle cx="325" cy="168" r="6" fill="#1f2937"/>
+  
+  <!-- No Grille - Tesla Design -->
+  <path d="M375,130 Q390,135 395,145" stroke="#9ca3af" stroke-width="2" fill="none"/>
+  
+  <!-- Headlights - LED Strip -->
+  <path d="M380,115 L395,120" stroke="#fbbf24" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Taillights - LED Strip -->
+  <path d="M55,125 L55,150" stroke="#ef4444" stroke-width="4" stroke-linecap="round"/>
+  
+  <!-- Door Handle - Flush -->
+  <rect x="220" y="120" width="30" height="3" rx="1.5" fill="#9ca3af"/>
+  
+  <!-- Tesla T Logo -->
+  <text x="230" y="145" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">T</text>
+  
+  <!-- Eco Badge -->
+  <circle cx="350" cy="140" r="10" fill="#10b981"/>
+  <text x="350" y="144" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="white">⚡</text>
+  
+  <!-- Label -->
+  <text x="200" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#9ca3af">Tesla Model S Plaid</text>
+</svg>
