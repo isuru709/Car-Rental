@@ -84,6 +84,9 @@
         <span class="cursor-text">View</span>
     </div>
 
+    <!-- ==================== NOTIFICATION SYSTEM ==================== -->
+    <div class="notification-container" id="notificationContainer"></div>
+
     <!-- ==================== FLOATING BACKGROUND ELEMENTS ==================== -->
     <div class="floating-orbs">
         <div class="orb orb-1"></div>
@@ -111,10 +114,13 @@
             </a>
         </div>
         <div class="nav-actions">
-            <button class="nav-cta magnetic" data-strength="20">
-                <span class="cta-text">Book Now</span>
-                <span class="cta-icon">🚗</span>
-            </button>
+            <!-- User Profile / Sign In Button -->
+            <div id="navUserSection">
+                <a href="login.html" class="nav-user-btn magnetic" id="navUserBtn" data-strength="20">
+                    <span class="user-icon">👤</span>
+                    <span class="user-text">Sign In</span>
+                </a>
+            </div>
         </div>
         <!-- Mobile Menu Toggle -->
         <button class="nav-menu-toggle magnetic" id="menuToggle" data-strength="15" aria-label="Toggle menu">
@@ -179,7 +185,7 @@
                             <span class="btn-text">Book Vehicle</span>
                             <span class="btn-icon">🚗</span>
                         </a>
-                        <a href="#signin" class="btn-secondary magnetic" data-strength="25">
+                        <a href="login.html" class="btn-secondary magnetic" data-strength="25">
                             <span class="btn-icon-left">👤</span>
                             <span class="btn-text">Sign In</span>
                         </a>
@@ -2907,6 +2913,72 @@
 
         </div>
     </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDGzrQ5VB-6coBFsbFCtWtNLHRWR8sAT_E",
+            authDomain: "drivexit.firebaseapp.com",
+            projectId: "drivexit",
+            storageBucket: "drivexit.firebasestorage.app",
+            messagingSenderId: "185371758015",
+            appId: "1:185371758015:web:5f0e2dd3aae8f1a5d77ea2",
+            measurementId: "G-YDXZRE8KRX"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Export auth and user state globally
+        window.firebaseAuth = auth;
+        window.currentUser = null;
+
+        // Listen for auth state changes
+        onAuthStateChanged(auth, (user) => {
+            window.currentUser = user;
+            
+            // Update navigation user button
+            const navUserBtn = document.getElementById('navUserBtn');
+            const userTextSpan = navUserBtn?.querySelector('.user-text');
+            
+            if (navUserBtn && userTextSpan) {
+                if (user) {
+                    // Extract first name from display name or email
+                    let firstName = 'User';
+                    if (user.displayName) {
+                        firstName = user.displayName.split(' ')[0];
+                    } else if (user.email) {
+                        firstName = user.email.split('@')[0];
+                    }
+                    
+                    userTextSpan.textContent = firstName;
+                    navUserBtn.href = '#';
+                    navUserBtn.classList.add('logged-in');
+                    
+                    // Add sign out handler
+                    navUserBtn.onclick = (e) => {
+                        e.preventDefault();
+                        if (confirm('Sign out from DriveX?')) {
+                            auth.signOut().then(() => {
+                                window.location.reload();
+                            });
+                        }
+                    };
+                } else {
+                    userTextSpan.textContent = 'Sign In';
+                    navUserBtn.href = 'login.html';
+                    navUserBtn.classList.remove('logged-in');
+                    navUserBtn.onclick = null;
+                }
+            }
+        });
+    </script>
 
     <script src="js/script.js"></script>
 </body>

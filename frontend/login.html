@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome | DriveX Car Rental</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Racing+Sans+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/auth.css">
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-analytics.js";
+        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, updateProfile, sendEmailVerification, applyActionCode } from "https://www.gstatic.com/firebasejs/11.8.0/firebase-auth.js";
+        
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDGzrQ5VB-6coBFsbFCtWtNLHRWR8sAT_E",
+            authDomain: "drivexit.firebaseapp.com",
+            projectId: "drivexit",
+            storageBucket: "drivexit.firebasestorage.app",
+            messagingSenderId: "878104571192",
+            appId: "1:878104571192:web:684bbe67c2d586d20265cd",
+            measurementId: "G-FGHZS32DMM"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+        
+        // Make auth and functions available globally
+        window.auth = auth;
+        window.firebaseAuth = auth;
+        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+        window.signInWithPopup = signInWithPopup;
+        window.GoogleAuthProvider = GoogleAuthProvider;
+        window.FacebookAuthProvider = FacebookAuthProvider;
+        window.updateProfile = updateProfile;
+        window.sendEmailVerification = sendEmailVerification;
+        window.applyActionCode = applyActionCode;
+        
+        console.log('✅ Firebase initialized successfully');
+    </script>
+</head>
+<body>
+    <!-- Animated Road Background -->
+    <div class="road-background">
+        <div class="road">
+            <div class="road-lines"></div>
+        </div>
+        <div class="roadside roadside-left"></div>
+        <div class="roadside roadside-right"></div>
+    </div>
+
+    <!-- Floating Car Particles -->
+    <div class="car-particles" id="carParticles"></div>
+
+    <!-- Speed Lines Background -->
+    <div class="speed-lines">
+        <div class="speed-line"></div>
+        <div class="speed-line"></div>
+        <div class="speed-line"></div>
+        <div class="speed-line"></div>
+        <div class="speed-line"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="auth-container">
+        <!-- Left Side - Brand Showcase -->
+        <div class="auth-visual">
+            <div class="visual-content">
+                <!-- DriveX Logo -->
+                <a href="index.html" class="brand-logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 60 60" class="steering-wheel">
+                            <circle cx="30" cy="30" r="25" fill="none" stroke="currentColor" stroke-width="4"/>
+                            <circle cx="30" cy="30" r="8" fill="currentColor"/>
+                            <line x1="30" y1="5" x2="30" y2="22" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="30" y1="38" x2="30" y2="55" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="5" y1="30" x2="22" y2="30" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                            <line x1="38" y1="30" x2="55" y2="30" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="brand-name">DriveX<span class="brand-dot">.</span></span>
+                </a>
+
+                <h1 class="visual-title">
+                    <span class="title-line">Start Your</span>
+                    <span class="title-line accent">Journey</span>
+                </h1>
+                <p class="visual-subtitle">Sri Lanka's premium car rental service. Experience luxury on wheels.</p>
+                
+                <!-- Stats -->
+                <div class="visual-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Premium Cars</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10K+</span>
+                        <span class="stat-label">Happy Drivers</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-label">Support</span>
+                    </div>
+                </div>
+
+                <!-- Floating Cars -->
+                <div class="floating-cars">
+                    <div class="float-car car-1">🏎️</div>
+                    <div class="float-car car-2">🚗</div>
+                    <div class="float-car car-3">🚙</div>
+                </div>
+            </div>
+            
+            <!-- Checkered Flag Pattern -->
+            <div class="checkered-pattern"></div>
+        </div>
+
+        <!-- Right Side - Form -->
+        <div class="auth-form-section">
+            <!-- Race Car Mascot (Lightning McQueen Style) -->
+            <div class="mascot-container">
+                <svg class="car-mascot" id="carMascot" viewBox="0 0 300 160">
+                    <defs>
+                        <!-- Car Body Gradient (Red Racing Car) -->
+                        <linearGradient id="carBodyGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#ef4444"/>
+                            <stop offset="50%" stop-color="#dc2626"/>
+                            <stop offset="100%" stop-color="#b91c1c"/>
+                        </linearGradient>
+                        <!-- Yellow Accent -->
+                        <linearGradient id="yellowAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#fbbf24"/>
+                            <stop offset="100%" stop-color="#f59e0b"/>
+                        </linearGradient>
+                        <!-- Windshield -->
+                        <linearGradient id="windshieldGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#60a5fa"/>
+                            <stop offset="100%" stop-color="#3b82f6"/>
+                        </linearGradient>
+                        <!-- Wheel Gradient -->
+                        <radialGradient id="wheelGradient" cx="50%" cy="50%" r="50%">
+                            <stop offset="0%" stop-color="#374151"/>
+                            <stop offset="70%" stop-color="#1f2937"/>
+                            <stop offset="100%" stop-color="#111827"/>
+                        </radialGradient>
+                        <!-- Chrome/Silver -->
+                        <linearGradient id="chromeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stop-color="#e5e7eb"/>
+                            <stop offset="50%" stop-color="#9ca3af"/>
+                            <stop offset="100%" stop-color="#6b7280"/>
+                        </linearGradient>
+                        <!-- Shadow Filter -->
+                        <filter id="carShadow" x="-20%" y="-20%" width="140%" height="140%">
+                            <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.3"/>
+                        </filter>
+                        <!-- Glow -->
+                        <filter id="headlightGlow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feGaussianBlur stdDeviation="3" result="glow"/>
+                            <feMerge>
+                                <feMergeNode in="glow"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    
+                    <!-- Car Shadow -->
+                    <ellipse class="car-shadow" cx="150" cy="150" rx="100" ry="12" fill="rgba(0,0,0,0.2)"/>
+                    
+                    <!-- Car Body Group -->
+                    <g class="car-body-group" filter="url(#carShadow)">
+                        <!-- Main Body -->
+                        <path class="car-body" d="M40,90 
+                            Q40,70 60,65 
+                            L90,65 
+                            Q100,65 110,50 
+                            L140,35 
+                            Q150,32 160,35 
+                            L200,55 
+                            Q210,60 220,60 
+                            L250,60 
+                            Q270,60 270,80 
+                            L270,100 
+                            Q270,110 260,110 
+                            L50,110 
+                            Q40,110 40,100 
+                            Z" fill="url(#carBodyGradient)"/>
+                        
+                        <!-- Yellow Lightning Stripe -->
+                        <path class="lightning-stripe" d="M60,85 L100,75 L95,82 L180,70 L175,78 L250,68 L250,78 L170,88 L175,82 L90,92 L95,86 L55,95 Z" fill="url(#yellowAccent)"/>
+                        
+                        <!-- Number Circle -->
+                        <circle class="number-circle" cx="200" cy="80" r="18" fill="white"/>
+                        <text class="car-number" x="200" y="87" text-anchor="middle" font-family="Racing Sans One" font-size="20" fill="#dc2626">95</text>
+                        
+                        <!-- Windshield (Eyes) -->
+                        <g class="car-eyes">
+                            <path class="windshield" d="M110,50 Q115,42 130,38 L155,38 Q170,42 175,50 L175,65 Q175,70 165,70 L120,70 Q110,70 110,65 Z" fill="url(#windshieldGradient)"/>
+                            
+                            <!-- Left Eye -->
+                            <g class="eye eye-left" transform="translate(125, 52)">
+                                <ellipse class="eye-white" rx="12" ry="10" fill="white"/>
+                                <ellipse class="eye-pupil" rx="6" ry="8" fill="#1e293b"/>
+                                <ellipse class="eye-shine" cx="-2" cy="-3" rx="3" ry="2" fill="white" opacity="0.9"/>
+                            </g>
+                            
+                            <!-- Right Eye -->
+                            <g class="eye eye-right" transform="translate(160, 52)">
+                                <ellipse class="eye-white" rx="12" ry="10" fill="white"/>
+                                <ellipse class="eye-pupil" rx="6" ry="8" fill="#1e293b"/>
+                                <ellipse class="eye-shine" cx="-2" cy="-3" rx="3" ry="2" fill="white" opacity="0.9"/>
+                            </g>
+                        </g>
+                        
+                        <!-- Eyelids that slide down from top to cover eyes with body color -->
+                        <g class="car-eyelids">
+                            <!-- Left eye eyelid -->
+                            <ellipse class="eyelid eyelid-left" cx="125" cy="52" rx="14" ry="12" fill="url(#carBodyGradient)" transform="translate(0, -30)"/>
+                            <!-- Right eye eyelid -->
+                            <ellipse class="eyelid eyelid-right" cx="160" cy="52" rx="14" ry="12" fill="url(#carBodyGradient)" transform="translate(0, -30)"/>
+                        </g>
+                        
+                        <!-- Mouth/Grille -->
+                        <g class="car-mouth">
+                            <path class="grille" d="M55,95 Q60,100 80,100 L95,100 Q100,100 100,95" fill="none" stroke="#1f2937" stroke-width="3" stroke-linecap="round"/>
+                            <!-- Happy Mouth -->
+                            <path class="mouth-happy" d="M55,92 Q77,110 100,92" fill="#1f2937" opacity="0"/>
+                        </g>
+                        
+                        <!-- Headlights -->
+                        <g class="headlights" filter="url(#headlightGlow)">
+                            <ellipse class="headlight headlight-left" cx="50" cy="85" rx="8" ry="6" fill="#fef3c7"/>
+                            <ellipse class="headlight headlight-right" cx="50" cy="95" rx="6" ry="4" fill="#fef3c7"/>
+                        </g>
+                        
+                        <!-- Taillights -->
+                        <rect class="taillight" x="262" y="75" width="8" height="20" rx="2" fill="#ef4444"/>
+                    </g>
+                    
+                    <!-- Wheels -->
+                    <g class="wheels">
+                        <!-- Front Wheel -->
+                        <g class="wheel wheel-front" transform="translate(85, 110)">
+                            <circle r="22" fill="url(#wheelGradient)"/>
+                            <circle r="18" fill="none" stroke="#374151" stroke-width="4"/>
+                            <circle r="8" fill="url(#chromeGradient)"/>
+                            <!-- Spokes -->
+                            <g class="wheel-spokes">
+                                <line x1="0" y1="-15" x2="0" y2="-8" stroke="#9ca3af" stroke-width="3"/>
+                                <line x1="0" y1="8" x2="0" y2="15" stroke="#9ca3af" stroke-width="3"/>
+                                <line x1="-15" y1="0" x2="-8" y2="0" stroke="#9ca3af" stroke-width="3"/>
+                                <line x1="8" y1="0" x2="15" y2="0" stroke="#9ca3af" stroke-width="3"/>
+                            </g>
+                        </g>
+                        
+                        <!-- Rear Wheel -->
+                        <g class="wheel wheel-rear" transform="translate(215, 110)">
+                            <circle r="22" fill="url(#wheelGradient)"/>
+                            <circle r="18" fill="none" stroke="#374151" stroke-width="4"/>
+                            <circle r="8" fill="url(#chromeGradient)"/>
+                            <!-- Spokes -->
+                            <g class="wheel-spokes">
+                                <line x1="0" y1="-15" x2="0" y2="-8" stroke="#9ca3af" stroke-width="3"/>
+                                <line x1="0" y1="8" x2="0" y2="15" stroke="#9ca3af" stroke-width="3"/>
+                                <line x1="-15" y1="0" x2="-8" y2="0" stroke="#9ca3af" stroke-width="3"/>
+                                <line x1="8" y1="0" x2="15" y2="0" stroke="#9ca3af" stroke-width="3"/>
+                            </g>
+                        </g>
+                    </g>
+                    
+                    <!-- Exhaust Smoke -->
+                    <g class="exhaust-smoke" opacity="0">
+                        <circle class="smoke smoke-1" cx="275" cy="100" r="5" fill="#9ca3af"/>
+                        <circle class="smoke smoke-2" cx="285" cy="95" r="7" fill="#9ca3af"/>
+                        <circle class="smoke smoke-3" cx="295" cy="90" r="9" fill="#9ca3af"/>
+                    </g>
+                    
+                    <!-- Celebration Stars -->
+                    <g class="celebration-stars" opacity="0">
+                        <polygon class="star star-1" points="50,20 53,28 62,28 55,33 58,42 50,37 42,42 45,33 38,28 47,28" fill="#fbbf24"/>
+                        <polygon class="star star-2" points="250,15 253,23 262,23 255,28 258,37 250,32 242,37 245,28 238,23 247,23" fill="#fbbf24"/>
+                        <polygon class="star star-3" points="150,5 153,13 162,13 155,18 158,27 150,22 142,27 145,18 138,13 147,13" fill="#fbbf24"/>
+                    </g>
+                    
+                    <!-- Heart Eyes (for success) -->
+                    <g class="heart-eyes" opacity="0">
+                        <path class="heart heart-left" d="M115,52 C115,47 120,42 125,47 C130,42 135,47 135,52 C135,60 125,68 125,68 C125,68 115,60 115,52" fill="#ef4444"/>
+                        <path class="heart heart-right" d="M150,52 C150,47 155,42 160,47 C165,42 170,47 170,52 C170,60 160,68 160,68 C160,68 150,60 150,52" fill="#ef4444"/>
+                    </g>
+                </svg>
+                
+                <!-- Speech Bubble -->
+                <div class="car-bubble" id="carBubble">
+                    <span class="bubble-text">Ka-chow! 🏁</span>
+                </div>
+            </div>
+
+            <!-- Form Container -->
+            <div class="form-container">
+                <!-- Tab Switcher -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">
+                        <span class="tab-icon">🔑</span>
+                        <span class="tab-text">Sign In</span>
+                    </button>
+                    <button class="auth-tab" data-tab="register">
+                        <span class="tab-icon">🚗</span>
+                        <span class="tab-text">Sign Up</span>
+                    </button>
+                    <div class="tab-slider"></div>
+                </div>
+
+                <!-- Forms Wrapper -->
+                <div class="forms-wrapper">
+                    <!-- Login Form -->
+                    <form class="auth-form active" id="loginForm" data-form="login">
+                        <div class="form-header">
+                            <h2>Welcome Back, Driver!</h2>
+                            <p>Sign in to access your bookings and rentals</p>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <input type="email" id="loginEmail" class="form-input" placeholder=" " required autocomplete="email">
+                                <label class="floating-label" for="loginEmail">Email Address</label>
+                                <div class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </div>
+                                <div class="input-line"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <input type="password" id="loginPassword" class="form-input" placeholder=" " required autocomplete="current-password">
+                                <label class="floating-label" for="loginPassword">Password</label>
+                                <div class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                    </svg>
+                                </div>
+                                <button type="button" class="password-toggle" aria-label="Toggle password">
+                                    <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                                        <line x1="1" y1="1" x2="23" y2="23"/>
+                                    </svg>
+                                </button>
+                                <div class="input-line"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-extras">
+                            <label class="remember-me">
+                                <input type="checkbox" class="checkbox-input">
+                                <span class="checkbox-custom">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                        <polyline points="20 6 9 17 4 12"/>
+                                    </svg>
+                                </span>
+                                <span class="checkbox-label">Remember me</span>
+                            </label>
+                            <a href="#" class="forgot-link">Forgot password?</a>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-bg"></span>
+                            <span class="btn-text">Start Driving</span>
+                            <span class="btn-icon">🏁</span>
+                            <span class="btn-loader">
+                                <span class="loader-wheel"></span>
+                            </span>
+                        </button>
+
+                        <div class="divider">
+                            <span class="divider-line"></span>
+                            <span class="divider-text">or continue with</span>
+                            <span class="divider-line"></span>
+                        </div>
+
+                        <div class="social-buttons">
+                            <button type="button" class="social-btn google">
+                                <svg viewBox="0 0 24 24">
+                                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="social-btn facebook">
+                                <svg viewBox="0 0 24 24" fill="#1877F2">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </button>
+                            <button type="button" class="social-btn apple">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Register Form -->
+                    <form class="auth-form" id="registerForm" data-form="register">
+                        <div class="form-header">
+                            <h2>Join the Ride!</h2>
+                            <p>Create an account to start your journey</p>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <div class="input-wrapper">
+                                    <input type="text" id="registerFirstName" class="form-input" placeholder=" " required>
+                                    <label class="floating-label" for="registerFirstName">First Name</label>
+                                    <div class="input-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
+                                    <div class="input-line"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-wrapper">
+                                    <input type="text" id="registerLastName" class="form-input" placeholder=" " required>
+                                    <label class="floating-label" for="registerLastName">Last Name</label>
+                                    <div class="input-icon">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                            <circle cx="12" cy="7" r="4"/>
+                                        </svg>
+                                    </div>
+                                    <div class="input-line"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <input type="email" id="registerEmail" class="form-input" placeholder=" " required autocomplete="email">
+                                <label class="floating-label" for="registerEmail">Email Address</label>
+                                <div class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </div>
+                                <div class="input-line"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <input type="tel" id="registerPhone" class="form-input" placeholder=" " required>
+                                <label class="floating-label" for="registerPhone">Phone Number</label>
+                                <div class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                    </svg>
+                                </div>
+                                <div class="input-line"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-wrapper">
+                                <input type="password" id="registerPassword" class="form-input" placeholder=" " required autocomplete="new-password">
+                                <label class="floating-label" for="registerPassword">Password</label>
+                                <div class="input-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                                    </svg>
+                                </div>
+                                <button type="button" class="password-toggle" aria-label="Toggle password">
+                                    <svg class="eye-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                    <svg class="eye-closed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+                                        <line x1="1" y1="1" x2="23" y2="23"/>
+                                    </svg>
+                                </button>
+                                <div class="input-line"></div>
+                            </div>
+                            <!-- Password Strength -->
+                            <div class="password-strength">
+                                <div class="strength-bar">
+                                    <div class="strength-fill"></div>
+                                </div>
+                                <span class="strength-text">Password strength</span>
+                            </div>
+                        </div>
+
+                        <label class="terms-checkbox">
+                            <input type="checkbox" class="checkbox-input" required>
+                            <span class="checkbox-custom">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                    <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                            </span>
+                            <span class="checkbox-label">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></span>
+                        </label>
+
+                        <button type="submit" class="submit-btn">
+                            <span class="btn-bg"></span>
+                            <span class="btn-text">Create Account</span>
+                            <span class="btn-icon">🚀</span>
+                            <span class="btn-loader">
+                                <span class="loader-wheel"></span>
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Back to Home -->
+            <a href="index.html" class="back-home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"/>
+                    <polyline points="12 19 5 12 12 5"/>
+                </svg>
+                <span>Back to Home</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-icon"></div>
+        <span class="toast-message"></span>
+    </div>
+
+    <!-- Email Verification Modal -->
+    <div class="verification-modal" id="verificationModal">
+        <div class="verification-content">
+            <div class="verification-header">
+                <h3>📧 Verify Your Email</h3>
+                <p>We've sent a verification link to your email address.</p>
+            </div>
+            <div class="verification-body">
+                <div class="verification-icon">✉️</div>
+                <p class="verification-text">Please check your inbox and click the verification link to activate your account.</p>
+                <div class="verification-steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <span class="step-text">Check your email inbox</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <span class="step-text">Click the verification link</span>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <span class="step-text">Return here to sign in</span>
+                    </div>
+                </div>
+                <button class="resend-btn" id="resendVerification">
+                    <span>Resend Email</span>
+                </button>
+                <button class="close-verification-btn" id="closeVerification">
+                    <span>I've Verified, Sign In</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

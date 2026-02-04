@@ -121,18 +121,15 @@ document.addEventListener('DOMContentLoaded', () => {
         animateFollower();
 
         // Hover effects for interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .magnetic, .car-card');
+        const interactiveElements = document.querySelectorAll('a, button, .magnetic');
 
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursorFollower.classList.add('active');
-                if (el.classList.contains('car-card')) {
-                    cursorFollower.classList.add('view-mode');
-                }
             });
 
             el.addEventListener('mouseleave', () => {
-                cursorFollower.classList.remove('active', 'view-mode');
+                cursorFollower.classList.remove('active');
             });
         });
 
@@ -861,6 +858,143 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { rootMargin: '50px' });
 
     lazyImages.forEach(img => imageObserver.observe(img));
+
+    // ═══════════════════════════════════════════════════════════════════════════════
+    // MODERN NOTIFICATION SYSTEM
+    // ═══════════════════════════════════════════════════════════════════════════════
+    const notificationContainer = document.getElementById('notificationContainer');
+
+    const showNotification = (message, type = 'info', actions = null) => {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type} notification-enter`;
+        
+        let actionsHTML = '';
+        if (actions) {
+            actionsHTML = `
+                <div class="notification-actions">
+                    ${actions.map(action => `
+                        <button class="notification-btn notification-btn-${action.type || 'primary'}" data-action="${action.action}">
+                            ${action.label}
+                        </button>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        notification.innerHTML = `
+            <div class="notification-icon">
+                ${type === 'success' ? '✓' : type === 'error' ? '✕' : type === 'warning' ? '⚠' : 'ℹ'}
+            </div>
+            <div class="notification-content">
+                <div class="notification-message">${message}</div>
+                ${actionsHTML}
+            </div>
+            <button class="notification-close" aria-label="Close">×</button>
+        `;
+        
+        notificationContainer.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => notification.classList.add('notification-show'), 10);
+        
+        // Handle action buttons
+        const actionButtons = notification.querySelectorAll('[data-action]');
+        const closeBtn = notification.querySelector('.notification-close');
+        
+        const closeNotification = () => {
+            notification.classList.remove('notification-show');
+            notification.classList.add('notification-exit');
+            setTimeout(() => notification.remove(), 300);
+        };
+        
+        actionButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const actionName = btn.dataset.action;
+                if (actionName === 'login') {
+                    window.location.href = 'login.html';
+                } else if (actionName === 'close') {
+                    closeNotification();
+                }
+            });
+        });
+        
+        closeBtn.addEventListener('click', closeNotification);
+        
+        // Auto close after 6 seconds if no actions
+        if (!actions) {
+            setTimeout(closeNotification, 6000);
+        }
+        
+        return { close: closeNotification };
+    };
+
+    // ═══════════════════════════════════════════════════════════════════════════════
+    // AUTHENTICATION CHECK FOR BOOKING
+    // ═══════════════════════════════════════════════════════════════════════════════
+    const checkAuthAndBook = (carName = 'this vehicle') => {
+        // Check if user is logged in
+        if (window.currentUser) {
+            // User is logged in, proceed with booking
+            showNotification(
+                `Great! Let's book <strong>${carName}</strong>. Booking system coming soon...`,
+                'success'
+            );
+            // Here you would redirect to booking page or open booking modal
+            // window.location.href = 'booking.html?car=' + encodeURIComponent(carName);
+        } else {
+            // User not logged in, show modern notification with action buttons
+            showNotification(
+                '🔐 Please sign in to book a vehicle',
+                'warning',
+                [
+                    { label: 'Sign In', action: 'login', type: 'primary' },
+                    { label: 'Cancel', action: 'close', type: 'secondary' }
+                ]
+            );
+        }
+    };
+
+    // Add click handlers to all "Book" buttons (excluding hero button)
+    const bookButtons = document.querySelectorAll('.btn-book-sm');
+    
+    bookButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Try to get car name from nearby elements
+            let carName = 'this vehicle';
+            const carCard = button.closest('.car-card');
+            if (carCard) {
+                const carNameElement = carCard.querySelector('.car-name');
+                if (carNameElement) {
+                    carName = carNameElement.textContent.trim();
+                }
+            }
+            
+            checkAuthAndBook(carName);
+        });
+    });
+
+    // Handle "Book Vehicle" button in hero section separately
+    const heroBookBtn = document.querySelector('.hero-cta .btn-primary');
+    if (heroBookBtn && heroBookBtn.textContent.includes('Book')) {
+        heroBookBtn.addEventListener('click', (e) => {
+            if (!window.currentUser) {
+                e.preventDefault();
+                e.stopPropagation();
+                showNotification(
+                    '🔐 Please sign in to book a vehicle',
+                    'warning',
+                    [
+                        { label: 'Sign In', action: 'login', type: 'primary' },
+                        { label: 'Cancel', action: 'close', type: 'secondary' }
+                    ]
+                );
+            }
+            // If logged in, allow default behavior (scroll to fleet)
+        });
+    }
 
     // ═══════════════════════════════════════════════════════════════════════════════
     // KEYBOARD NAVIGATION
