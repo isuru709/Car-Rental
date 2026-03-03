@@ -1083,6 +1083,7 @@ img {
     justify-content: center;
     gap: var(--space-lg);
     padding-top: var(--space-md);
+    margin-bottom: 80px; /* Add space for scroll indicator */
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     opacity: 0;
     animation: fadeUp 1s var(--ease-out-expo) forwards 1s;
@@ -1215,7 +1216,7 @@ img {
 /* Scroll Indicator */
 .scroll-indicator {
     position: absolute;
-    bottom: var(--space-lg);
+    bottom: 40px; /* Increased from var(--space-lg) for better clearance */
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -1224,6 +1225,7 @@ img {
     gap: var(--space-sm);
     opacity: 0;
     animation: fadeIn 1s ease forwards 1.5s;
+    z-index: 10; /* Ensure it appears above other content */
 }
 
 .scroll-mouse {
@@ -3652,6 +3654,7 @@ img {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
+        margin-bottom: 60px; /* Ensure space for scroll indicator on tablets */
     }
     
     .hero-stat {
